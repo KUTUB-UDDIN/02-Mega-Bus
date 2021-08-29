@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="firstTicket-count" class="inp-style inp-width" type="number" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span onclick="handleTicket('firstTicket',true)"> + </span>  
+                          <span onclick="handleTicket('firstTicket',false)">  - </span>
+                        
+                        </p>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="secondTicket-count" class="inp-style inp-width" type="number" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> <span onclick="handleTicket( 'secondTicket',true);" >+</span>
+                            
+                        <span onclick="handleTicket('secondTicket',false);" >-</span> 
+                    </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-price">$00</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="vat-total">$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$00</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script>
+          function  handleTicket(Ticket, isIncrease){
+                  
+                  const ticketInput = document.getElementById(Ticket + '-count');
+                    const ticketCount = parseInt(ticketInput.value);
+                  //   const  firstNewCount =  firstCount - 1;
+                    let  ticketNewCount =  ticketCount;
+                    if (isIncrease==true) {
+                        ticketNewCount =  ticketCount + 1
+                    }
+                    if (isIncrease==false &&   ticketNewCount >0 ) {
+                        ticketNewCount =  ticketCount - 1
+                    }
+                    ticketInput.value =  ticketNewCount ;
+                    // const TotalPrice =  firstNewCount * 150 ;
+                    let TotalPrice = 0;
+                    if (Ticket=='firstTicket') {
+                        TotalPrice =   ticketNewCount * 150 ;
+                    }
+
+                    if (Ticket=='secondTicket') {
+                        TotalPrice =   ticketNewCount * 100 ;
+                    }
+                   
+                    document.getElementById('total-price').innerText = '$' + TotalPrice;
+                    calculatedTotal();
+                }
+
+
+                function calculatedTotal(){
+                        
+                      const firstInput = document.getElementById( 'firstTicket-count');
+                      const firstCount = parseInt(firstInput.value);
+
+                      const secondInput = document.getElementById('secondTicket-count');
+                       const secondCount = parseInt(secondInput.value);
+
+                     const totalTicketPrice =   firstCount * 150 + secondCount * 100;
+                     document.getElementById('total-price').innerText = '$' +totalTicketPrice;
+
+                     const VAT =  Math.round(totalTicketPrice * 0.1)  ;
+                     document.getElementById( 'vat-total').innerText = '$' +VAT;
+
+                     const grandTotal = totalTicketPrice + VAT ;
+
+                     document.getElementById( 'grand-total').innerText = '$' + grandTotal ;
+
+
+                }
+
+
+
+/*
+function  handleTicket(Ticket, isIncrease){
+                  
+                  const firstTicketInput = document.getElementById(Ticket + '-count');
+                    const firstCount = parseInt(firstTicketInput.value);
+                  //   const  firstNewCount =  firstCount - 1;
+                    let  firstNewCount =  firstCount;
+                    if (isIncrease==true) {
+                      firstNewCount =  firstCount + 1
+                    }
+                    if (isIncrease==false && firstNewCount >0 ) {
+                      firstNewCount =  firstCount - 1
+                    }
+                    firstTicketInput.value =  firstNewCount ;
+                    // const TotalPrice =  firstNewCount * 150 ;
+                    let TotalPrice = 0;
+                    if (Ticket=='firstTicket') {
+                        TotalPrice =  firstNewCount * 150 
+                    }
+
+                    if (Ticket=='secondTicket') {
+                        TotalPrice =  firstNewCount * 150 
+                    }
+                  
+                    document.getElementById('total-price').innerText = '$' + TotalPrice;
+      
+                }
+
+
+         */
+
+      /*
+          function  handleFirstTicket(isIncrease){
+                  
+            const firstTicketInput = document.getElementById('firstTicket-count');
+              const firstCount = parseInt(firstTicketInput.value);
+            //   const  firstNewCount =  firstCount - 1;
+              let  firstNewCount =  firstCount;
+              if (isIncrease==true) {
+                firstNewCount =  firstCount + 1
+              }
+              if (isIncrease==false && firstNewCount >0 ) {
+                firstNewCount =  firstCount - 1
+              }
+              firstTicketInput.value =  firstNewCount ;
+              const TotalPrice =  firstNewCount * 150 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+
+          }
+         
+        function handleSecondTicket(isIncrease){
+
+            const secondTicketInput = document.getElementById('secondTicket-count');
+              const secondCount = parseInt(secondTicketInput.value);
+            //   const secondNewCount = secondCount - 1;
+            let secondNewCount = secondCount;
+            if (isIncrease==true) {
+                secondNewCount = secondCount + 1
+            }
+
+            if (isIncrease==false && secondNewCount>0 ) {
+                secondNewCount = secondCount - 1
+            }
+              secondTicketInput.value = secondNewCount ;
+              const TotalPrice =  secondNewCount * 100 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+        }
+
+
+     */
+
+
+      /*
+           
+           document.getElementById('firstTicket-increment').addEventListener('click',function(){
+            handleFirstTicket(true);
+          })
+
+          document.getElementById('firstTicket-decrement').addEventListener('click',function(){
+            handleFirstTicket(false);
+          })
+
+
+          function  handleFirstTicket(isIncrease){
+                  
+            const firstTicketInput = document.getElementById('firstTicket-count');
+              const firstCount = parseInt(firstTicketInput.value);
+            //   const  firstNewCount =  firstCount - 1;
+              let  firstNewCount =  firstCount;
+              if (isIncrease==true) {
+                firstNewCount =  firstCount + 1
+              }
+              if (isIncrease==false && firstNewCount >0 ) {
+                firstNewCount =  firstCount - 1
+              }
+              firstTicketInput.value =  firstNewCount ;
+              const TotalPrice =  firstNewCount * 150 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+
+          }
+         
+ 
+
+          document.getElementById('secondTicket-increment').addEventListener('click',function(){
+            handleSecondTicket(true);
+          })
+         
+          document.getElementById('secondTicket-decrement').addEventListener('click',function(){
+            handleSecondTicket(false);
+          })
+
+        function handleSecondTicket(isIncrease){
+
+            const secondTicketInput = document.getElementById('secondTicket-count');
+              const secondCount = parseInt(secondTicketInput.value);
+            //   const secondNewCount = secondCount - 1;
+            let secondNewCount = secondCount;
+            if (isIncrease==true) {
+                secondNewCount = secondCount + 1
+            }
+
+            if (isIncrease==false && secondNewCount>0 ) {
+                secondNewCount = secondCount - 1
+            }
+              secondTicketInput.value = secondNewCount ;
+              const TotalPrice =  secondNewCount * 100 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+        }
+        */
+
+        /*
+
+
+
+            document.getElementById('firstTicket-increment').addEventListener('click',function(){
+              const firstTicketInput = document.getElementById('secondTicket-count');
+              const firstCount = parseInt(firstTicketInput.value);
+              const  firstNewCount =  firstCount + 1;
+              firstTicketInput.value =  firstNewCount ;
+              const TotalPrice =  secondNewCount * 150 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+          })
+
+          document.getElementById('firstTicket-decrement').addEventListener('click',function(){
+              const firstTicketInput = document.getElementById('secondTicket-count');
+              const firstCount = parseInt(firstTicketInput.value);
+              const  firstNewCount =  firstCount - 1;
+              firstTicketInput.value =  firstNewCount ;
+              const TotalPrice =  secondNewCount * 150 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+          })
+
+    //    second part :
+                  document.getElementById('secondTicket-increment').addEventListener('click',function(){
+              const secondTicketInput = document.getElementById('secondTicket-count');
+              const secondCount = parseInt(secondTicketInput.value);
+              const secondNewCount = secondCount + 1;
+              secondTicketInput.value = secondNewCount ;
+              const TotalPrice =  secondNewCount * 100 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+          })
+         
+          document.getElementById('secondTicket-decrement').addEventListener('click',function(){
+              const secondTicketInput = document.getElementById('secondTicket-count');
+              const secondCount = parseInt(secondTicketInput.value);
+              const secondNewCount = secondCount - 1;
+              secondTicketInput.value = secondNewCount ;
+              const TotalPrice =  secondNewCount * 100 ;
+              document.getElementById('total-price').innerText = '$' + TotalPrice;
+          });
+        */
+
+    </script>
+</body>
+
+</html>
